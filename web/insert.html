@@ -1,0 +1,101 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<div class="container">
+    <div class="row">
+        <div class="custom-space"></div>
+        <a href="/TrabalhoMVC" class="glyphicon glyphicon-chevron-left"><strong>Voltar</strong></a>
+        <div class="custom-space"></div>
+        <div class="custom-space"></div>
+        <div class="col-md-4">
+            <form action="CandidatoFC">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="cpf">CPF:</label>
+                          <input name='cpf' type="number" class="form-control" id="cpf">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="identidade">Identidade:</label>
+                          <input name='identidade' type="number" class="form-control" id="identidade">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="nome">Nome:</label>
+                          <input name='nome' type="text" class="form-control" id="nome">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Sexo: </label>
+                          <label class="radio-inline"><input type="radio" value="masculino" name="sexo" checked>Masculino</label>
+                          <label class="radio-inline"><input type="radio" value="feminino" name="sexo">Feminino</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="orgao">Órgão:</label>
+                          <input type="text" name='orgao' class="form-control" id="orgao">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input name='email' type="email" class="form-control" id="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="data">Data:</label>
+                          <input name='data' type="date" class="form-control" id="data">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="expedicao">Expedição:</label>
+                          <input name='expedicao' type="date" class="form-control" id="expedicao">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="uf">UF:</label>
+                          <input name='uf' type="text" class="form-control" id="uf">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="telefone">Telefone</label>
+                          <input name='telefone' type="tel" class="form-control" id="telefone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="vaga">Vaga:</label>
+                          <select name='vaga' class="form-control" id="vaga">
+                              <option value="0"></option>
+                              <option value="1">“Tecnico de Desenvolvimento Web”</option>
+                              <option value="2">”Analista de Suporte”</option>
+                              <option value="3">”Administrador de Rede”</option>
+                              <option value="4">“Analista de Banco de Dados”</option>
+                          </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
