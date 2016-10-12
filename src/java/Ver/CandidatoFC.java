@@ -5,13 +5,11 @@ import Control.ControleCandidato;
 import Modelo.Candidato;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Modelo.CandidatoDAO;
-import java.util.Map;
 import javax.servlet.RequestDispatcher;
 
 public class CandidatoFC extends HttpServlet {
@@ -39,23 +37,65 @@ public class CandidatoFC extends HttpServlet {
         }
     }*/
     
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             
             if(request.getParameter("search") != null){
-                
-                //response.s
-                //request.setAttribute("cpf", request.getParameter("searchcpf"));
-                //response.sendRedirect("control.jsp?aftersearch=aftersearch&update=update&cpf=" + request.getParameter("searchcpf"));
-                
-                request.setAttribute("cpf", request.getParameter("searchcpf"));
+                     
+                String cpf = request.getParameter("searchcpf");
+                Candidato c = CandidatoDAO.findOne(cpf);
 
-                RequestDispatcher rd = request.getRequestDispatcher("control.jsp?aftersearch=aftersearch&update=update&cpf=" + request.getParameter("searchcpf"));
+                
+                request.setAttribute("cpf", cpf);
+                
+                if(c != null){
+                    request.setAttribute("identidade", c.identidade);
+                    request.setAttribute("nome", c.nome);
+                    request.setAttribute("sexo", c.sexo);
+                    request.setAttribute("orgao", c.orgao);
+                    request.setAttribute("email", c.email);
+                    request.setAttribute("data", c.data);
+                    request.setAttribute("expedicao", c.expedicao);
+                    request.setAttribute("uf", c.UF);
+                    request.setAttribute("telefone", c.telefone);
+                    request.setAttribute("vaga", c.vaga);
+                }
+
+
+                RequestDispatcher rd = request
+                        .getRequestDispatcher("control.jsp?"
+                        + "aftersearch=aftersearch&update=update&cpf=" 
+                        + cpf);
                 rd.forward(request,response);
             }
             else if(request.getParameter("update") != null){
                 
-                return;
+                String cpf = request.getParameter("cpf");
+                Candidato c = CandidatoDAO.findOne(cpf);
+                //out.println("inside");
+                //out.println(cpf);
+                if(c != null){
+                    c.cpf = cpf;
+                    c.identidade = (String)request.getAttribute("identidade");
+                    c.nome = (String)request.getAttribute("nome");
+                    c.sexo = (String)request.getAttribute("sexo");
+                    c.orgao = (String)request.getAttribute("orgao");
+                    c.email = (String)request.getAttribute("email");
+                    c.data = (String)request.getAttribute("data");
+                    c.expedicao = (String)request.getAttribute("expedicao");
+                    c.UF = (String)request.getAttribute("uf");
+                    c.telefone = (String)request.getAttribute("telefone");
+                    c.vaga = (String)request.getAttribute("vaga");
+                    response.sendRedirect("/TrabalhoMVC");
+                }
+            }
+            else  if(request.getParameter("delete") != null){
+                String cpf = request.getParameter("searchcpf");
+               
+                CandidatoDAO.deleteOne(cpf);
+                
+                response.sendRedirect("/TrabalhoMVC");
             }
             else {
                 String cpf = request.getParameter("cpf"); 

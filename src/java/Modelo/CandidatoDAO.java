@@ -40,8 +40,8 @@ public class CandidatoDAO {
         UF[3] = "ES";
         
         String SEXO[] = new String[2];
-        SEXO[0]  = "M";
-        SEXO[1] = "F";
+        SEXO[0]  = "masculino";
+        SEXO[1] = "feminino";
         
         
         if(list != null)
@@ -87,6 +87,40 @@ public class CandidatoDAO {
     
     public static List<Candidato> getAll(){
         return CandidatoDAO.getConnection();
+    }
+    
+    public static Candidato findOne(String cpf){
+        List<Candidato> l = getAll();
+        
+        for(Candidato c : l){
+            if(c.cpf.equals(cpf)){
+                return c;
+            }
+        }
+        
+        return null;
+    }
+    
+    public static void deleteOne(String cpf){
+        List<Candidato> l = getAll();
+        
+        for(Candidato c : l){
+            if(c.cpf.equals(cpf)){
+                l.remove(c);
+                return;
+            }
+        }
+        
+        for(int i = 0; i < l.size() ; i++){
+            Candidato c = l.get(i);
+            
+            if(c.cpf.equals(cpf)){
+                l.remove(i);
+                return;
+            }
+        }
+        
+        return;
     }
 
         
