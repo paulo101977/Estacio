@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Modelo.CandidatoDAO;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
 
 public class CandidatoFC extends HttpServlet {
    
@@ -41,43 +42,58 @@ public class CandidatoFC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
             
-            String cpf = request.getParameter("cpf"); 
-            String identidade = request.getParameter("identidade");
-            String nome = request.getParameter("nome");
-            String sexo = request.getParameter("sexo");
-            String orgao = request.getParameter("orgao");
-            String email = request.getParameter("email");
-            String data = request.getParameter("data");
-            String expedicao = request.getParameter("expedicao");
-            String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String vaga = request.getParameter("vaga");
-            
-            String valorVaga = "";
-            
-            switch(vaga){
-                case "1":
-                    valorVaga = "Tecnico de Desenvolvimento Web";
-                    break;
-                case "2":
-                    valorVaga = "Analista de Suporte";
-                    break;
-                case "3":
-                    valorVaga = "Administrador de Rede";
-                    break;
-                case "4":
-                    valorVaga = "Analista de Banco de Dados";
-                    break;
-                default:
-                    
-                    
+            if(request.getParameter("search") != null){
+                
+                //response.s
+                //request.setAttribute("cpf", request.getParameter("searchcpf"));
+                //response.sendRedirect("control.jsp?aftersearch=aftersearch&update=update&cpf=" + request.getParameter("searchcpf"));
+                
+                request.setAttribute("cpf", request.getParameter("searchcpf"));
+
+                RequestDispatcher rd = request.getRequestDispatcher("control.jsp?aftersearch=aftersearch&update=update&cpf=" + request.getParameter("searchcpf"));
+                rd.forward(request,response);
             }
-            
-            
-            //Date d = new Date(data);
-            Candidato cadastro = new Candidato(cpf,identidade,telefone,valorVaga,nome,orgao,email,data,expedicao,sexo,uf);
-            CandidatoDAO.Inserir(cadastro);
-            out.println("Inserido");
+            else if(request.getParameter("update") != null){
+                
+                return;
+            }
+            else {
+                String cpf = request.getParameter("cpf"); 
+                String identidade = request.getParameter("identidade");
+                String nome = request.getParameter("nome");
+                String sexo = request.getParameter("sexo");
+                String orgao = request.getParameter("orgao");
+                String email = request.getParameter("email");
+                String data = request.getParameter("data");
+                String expedicao = request.getParameter("expedicao");
+                String uf = request.getParameter("uf");
+                String telefone = request.getParameter("telefone");
+                String vaga = request.getParameter("vaga");
+                String valorVaga = "";
+
+                switch(vaga){
+                    case "1":
+                        valorVaga = "Tecnico de Desenvolvimento Web";
+                        break;
+                    case "2":
+                        valorVaga = "Analista de Suporte";
+                        break;
+                    case "3":
+                        valorVaga = "Administrador de Rede";
+                        break;
+                    case "4":
+                        valorVaga = "Analista de Banco de Dados";
+                        break;
+                    default:
+
+
+                }
+
+                //Date d = new Date(data);
+                Candidato cadastro = new Candidato(cpf,identidade,telefone,valorVaga,nome,orgao,email,data,expedicao,sexo,uf);
+                CandidatoDAO.Inserir(cadastro);
+                response.sendRedirect("/TrabalhoMVC"); //redireciona pra main page
+            }
         }
         catch(IOException ex){
             PrintWriter out = response.getWriter();
@@ -91,10 +107,7 @@ public class CandidatoFC extends HttpServlet {
     }
     
     
-    
-    public void renderInsertPage(PrintWriter out){
-        
-    }
+ 
     
     
    
